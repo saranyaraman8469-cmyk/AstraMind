@@ -1,101 +1,221 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Shield, KeyRound, User, Lock, ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Mock authentication
-    setTimeout(() => {
-      router.push("/dashboard");
-    }, 1000);
+    setTimeout(() => router.push("/dashboard"), 1200);
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#050B14] relative overflow-hidden transition-colors duration-500">
-      {/* Background ambient light */}
-      <div className="absolute top-1/4 left-1/4 w-[40%] h-[40%] bg-blue-500/20 dark:bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[30%] h-[30%] bg-emerald-500/20 dark:bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none" />
+  if (!mounted) return null;
 
-      <div className="w-full max-w-md p-8 relative z-10">
-        <div className="backdrop-blur-xl bg-white/60 dark:bg-slate-900/40 border border-slate-200/50 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden p-8">
-          
-          <div className="flex flex-col items-center mb-8">
-            <div className="h-16 w-16 bg-gradient-to-tr from-blue-600 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20 mb-4 transform rotate-12">
-              <Shield className="h-8 w-8 text-white -rotate-12" />
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#04080F",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        overflow: "hidden",
+        fontFamily: "var(--font-geist-sans), 'Inter', sans-serif"
+      }}
+    >
+      {/* Grid background */}
+      <div className="bg-grid" style={{ position: "absolute", inset: 0, opacity: 0.6 }} />
+
+      {/* Ambient orbs */}
+      <div style={{
+        position: "absolute", top: "-15%", left: "-10%",
+        width: "55%", height: "55%",
+        background: "radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%)",
+        filter: "blur(60px)", pointerEvents: "none"
+      }} />
+      <div style={{
+        position: "absolute", bottom: "-15%", right: "-10%",
+        width: "50%", height: "50%",
+        background: "radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%)",
+        filter: "blur(60px)", pointerEvents: "none"
+      }} />
+
+      {/* Main card */}
+      <div
+        className="animate-fade-up"
+        style={{
+          width: "100%", maxWidth: "440px",
+          padding: "0 20px",
+          position: "relative", zIndex: 10
+        }}
+      >
+        {/* Glowing top border */}
+        <div style={{
+          height: "1px",
+          background: "linear-gradient(90deg, transparent, rgba(14,165,233,0.6), transparent)",
+          marginBottom: 0, borderRadius: "16px 16px 0 0"
+        }} />
+
+        <div
+          className="glass"
+          style={{
+            borderRadius: "20px", padding: "44px 40px",
+            boxShadow: "0 40px 80px rgba(0,0,0,0.7), 0 0 60px rgba(14,165,233,0.05), inset 0 1px 0 rgba(255,255,255,0.06)"
+          }}
+        >
+          {/* Logo */}
+          <div style={{ textAlign: "center", marginBottom: "36px" }}>
+            <div style={{
+              width: 64, height: 64,
+              background: "linear-gradient(135deg, #0ea5e9, #10b981)",
+              borderRadius: "18px",
+              display: "inline-flex", alignItems: "center", justifyContent: "center",
+              marginBottom: "20px",
+              boxShadow: "0 8px 32px rgba(14,165,233,0.4)",
+              fontSize: "28px"
+            }}
+              className="animate-float animate-pulse-glow"
+            >
+              ⚡
             </div>
-            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-emerald-600 dark:from-blue-400 dark:to-emerald-400">
+            <h1 style={{
+              fontSize: "2rem", fontWeight: 800, letterSpacing: "-0.03em",
+              background: "linear-gradient(135deg, #38bdf8 0%, #34d399 100%)",
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+              marginBottom: "6px"
+            }}>
               AstraMind
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">Secure AI Gateway</p>
+            <p style={{ color: "#475569", fontSize: "0.85rem", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600 }}>
+              AI Intelligence Gateway
+            </p>
+            <div style={{
+              display: "inline-block", marginTop: "12px",
+              padding: "3px 12px",
+              background: "rgba(16,185,129,0.1)",
+              border: "1px solid rgba(16,185,129,0.25)",
+              borderRadius: "20px",
+              fontSize: "0.7rem", fontWeight: 700,
+              color: "#34d399", letterSpacing: "0.05em"
+            }}>
+              SECURE GOVERNMENT PORTAL
+            </div>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div className="space-y-1">
-              <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Username or Email</label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-                <input 
-                  type="text" 
-                  required
-                  value={identifier}
-                  onChange={(e) => setIdentifier(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/50 dark:bg-black/20 border border-slate-200 dark:border-white/5 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-slate-800 dark:text-white placeholder:text-slate-400"
+          {/* Form */}
+          <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+            {/* Username / Email */}
+            <div>
+              <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "#94a3b8", marginBottom: "8px", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                Username or Email
+              </label>
+              <div style={{ position: "relative" }}>
+                <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", fontSize: "16px", opacity: 0.5 }}>👤</span>
+                <input
+                  type="text" required value={identifier}
+                  onChange={e => setIdentifier(e.target.value)}
+                  className="input-premium"
                   placeholder="admin@astramind.gov.in"
                 />
               </div>
             </div>
 
-            <div className="space-y-1">
-              <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Password</label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-                <input 
-                  type="password" 
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/50 dark:bg-black/20 border border-slate-200 dark:border-white/5 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-slate-800 dark:text-white placeholder:text-slate-400"
-                  placeholder="••••••••"
+            {/* Password */}
+            <div>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
+                <label style={{ fontSize: "0.75rem", fontWeight: 700, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                  Password
+                </label>
+                <a href="#" style={{ fontSize: "0.75rem", color: "#38bdf8", textDecoration: "none", opacity: 0.8 }}>Forgot?</a>
+              </div>
+              <div style={{ position: "relative" }}>
+                <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", fontSize: "16px", opacity: 0.5 }}>🔒</span>
+                <input
+                  type="password" required value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  className="input-premium"
+                  placeholder="••••••••••"
                 />
               </div>
             </div>
 
-            <button 
-              type="submit" 
+            {/* Submit */}
+            <button
+              type="submit"
               disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/30 transition-all active:scale-95 disabled:opacity-70"
+              className="btn-brand"
+              style={{ width: "100%", marginTop: "8px" }}
             >
-              {isLoading ? (
-                <span className="animate-spin h-5 w-5 border-2 border-white/30 border-t-white rounded-full" />
-              ) : (
-                <>
-                  <KeyRound className="h-5 w-5" />
-                  Authenticate
-                  <ArrowRight className="h-4 w-4 ml-1" />
-                </>
-              )}
+              <span>
+                {isLoading ? (
+                  <>
+                    <svg style={{ width: 18, height: 18, animation: "spin 1s linear infinite" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                      <path d="M21 12a9 9 0 1 1-6.219-8.56" strokeLinecap="round" />
+                    </svg>
+                    Authenticating...
+                  </>
+                ) : (
+                  <>
+                    🛡️ Authenticate & Enter
+                    <svg style={{ width: 16, height: 16 }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                      <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </>
+                )}
+              </span>
             </button>
           </form>
 
-          <div className="mt-8 text-center text-sm">
-            <span className="text-slate-500 dark:text-slate-400">New operator? </span>
-            <Link href="/signup" className="font-bold text-blue-600 dark:text-blue-400 hover:underline">
-              Request Access
-            </Link>
+          {/* Divider */}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "24px 0" }}>
+            <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.06)" }} />
+            <span style={{ color: "#334155", fontSize: "0.75rem", fontWeight: 600 }}>NEW OPERATOR?</span>
+            <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.06)" }} />
           </div>
-          
+
+          <Link href="/signup" style={{
+            display: "block", textAlign: "center", padding: "0.75rem",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: "12px", color: "#94a3b8",
+            textDecoration: "none", fontSize: "0.875rem", fontWeight: 600,
+            transition: "all 0.2s ease",
+            background: "rgba(255,255,255,0.02)"
+          }}
+            onMouseEnter={e => {
+              (e.target as HTMLElement).style.borderColor = "rgba(14,165,233,0.4)";
+              (e.target as HTMLElement).style.color = "#38bdf8";
+            }}
+            onMouseLeave={e => {
+              (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
+              (e.target as HTMLElement).style.color = "#94a3b8";
+            }}
+          >
+            Request Government Access →
+          </Link>
+
+          {/* Footer */}
+          <p style={{ textAlign: "center", marginTop: "20px", fontSize: "0.7rem", color: "#1e293b", letterSpacing: "0.04em" }}>
+            🔒 Secured by AstraMind AI Security • MoHA Certified
+          </p>
         </div>
       </div>
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
     </div>
   );
 }

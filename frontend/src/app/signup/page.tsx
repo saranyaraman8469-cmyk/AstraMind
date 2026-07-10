@@ -1,134 +1,144 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Shield, UserPlus, User, Lock, Mail, Building, ArrowRight } from "lucide-react";
+
+const DEPARTMENTS = [
+  { value: "disaster", label: "🚨  Disaster Management" },
+  { value: "infra",    label: "🏗️  Infrastructure" },
+  { value: "medical",  label: "🏥  Medical / Health" },
+  { value: "power",    label: "⚡  Power & Energy" },
+  { value: "railways", label: "🚆  Railways" },
+  { value: "coast",    label: "⚓  Coast Guard" },
+];
 
 export default function SignupPage() {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    department: ""
-  });
+  const [form, setForm] = useState({ username: "", email: "", password: "", department: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
-  const handleSignup = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    // Mock registration
-    setTimeout(() => {
-      router.push("/dashboard");
-    }, 1500);
-  };
+  useEffect(() => { setMounted(true); }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#050B14] relative overflow-hidden transition-colors duration-500 py-12">
-      {/* Background ambient light */}
-      <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-500/20 dark:bg-emerald-600/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-blue-500/20 dark:bg-blue-600/20 rounded-full blur-[100px] pointer-events-none" />
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setTimeout(() => router.push("/dashboard"), 1500);
+  };
 
-      <div className="w-full max-w-lg p-8 relative z-10">
-        <div className="backdrop-blur-xl bg-white/60 dark:bg-slate-900/40 border border-slate-200/50 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden p-8">
-          
-          <div className="flex flex-col items-center mb-6">
-            <div className="h-14 w-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20 mb-3 transform -rotate-6">
-              <UserPlus className="h-7 w-7 text-white rotate-6" />
+  if (!mounted) return null;
+
+  return (
+    <div style={{
+      minHeight: "100vh",
+      background: "#04080F",
+      display: "flex", alignItems: "center", justifyContent: "center",
+      position: "relative", overflow: "hidden",
+      fontFamily: "var(--font-geist-sans), 'Inter', sans-serif",
+      padding: "40px 20px"
+    }}>
+      <div className="bg-grid" style={{ position: "absolute", inset: 0, opacity: 0.5 }} />
+      
+      {/* Orbs */}
+      <div style={{ position: "absolute", top: "-20%", right: "-10%", width: "50%", height: "50%", background: "radial-gradient(circle, rgba(16,185,129,0.16) 0%, transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "-20%", left: "-10%", width: "45%", height: "45%", background: "radial-gradient(circle, rgba(14,165,233,0.12) 0%, transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }} />
+
+      <div className="animate-fade-up" style={{ width: "100%", maxWidth: "500px", position: "relative", zIndex: 10 }}>
+        <div className="glass" style={{
+          borderRadius: "20px", padding: "40px",
+          boxShadow: "0 40px 80px rgba(0,0,0,0.7), 0 0 60px rgba(16,185,129,0.05), inset 0 1px 0 rgba(255,255,255,0.06)"
+        }}>
+          {/* Header */}
+          <div style={{ textAlign: "center", marginBottom: "32px" }}>
+            <div style={{
+              width: 60, height: 60,
+              background: "linear-gradient(135deg, #10b981, #059669)",
+              borderRadius: "16px", display: "inline-flex", alignItems: "center", justifyContent: "center",
+              marginBottom: "16px", fontSize: "26px",
+              boxShadow: "0 8px 32px rgba(16,185,129,0.4)"
+            }}>
+              🛡️
             </div>
-            <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400">
+            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, letterSpacing: "-0.03em", background: "linear-gradient(135deg, #34d399, #10b981)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: "6px" }}>
               Request Access
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Join the AstraMind intelligence network.</p>
+            <p style={{ color: "#475569", fontSize: "0.85rem" }}>Join the AstraMind intelligence network</p>
           </div>
 
-          <form onSubmit={handleSignup} className="space-y-4">
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 ml-1">Username</label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                  <input 
-                    type="text" name="username" required onChange={handleChange}
-                    className="w-full pl-9 pr-3 py-2.5 bg-white/50 dark:bg-black/20 border border-slate-200 dark:border-white/5 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-slate-800 dark:text-white"
-                    placeholder="officer_01"
-                  />
+          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {/* Username + Department row */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+              <div>
+                <label style={{ display: "block", fontSize: "0.7rem", fontWeight: 700, color: "#64748b", marginBottom: "6px", letterSpacing: "0.08em", textTransform: "uppercase" }}>Username</label>
+                <div style={{ position: "relative" }}>
+                  <span style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", fontSize: "14px", opacity: 0.5 }}>👤</span>
+                  <input type="text" name="username" required onChange={handleChange} className="input-premium" placeholder="officer_01" style={{ fontSize: "0.85rem" }} />
                 </div>
               </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 ml-1">Department</label>
-                <div className="relative">
-                  <Building className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                  <select 
-                    name="department" required onChange={handleChange}
-                    className="w-full pl-9 pr-3 py-2.5 bg-white/50 dark:bg-black/20 border border-slate-200 dark:border-white/5 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-slate-800 dark:text-white appearance-none"
-                  >
-                    <option value="" disabled selected>Select Dept...</option>
-                    <option value="disaster">Disaster Mgmt</option>
-                    <option value="infrastructure">Infrastructure</option>
-                    <option value="medical">Medical / Health</option>
-                  </select>
-                </div>
+              <div>
+                <label style={{ display: "block", fontSize: "0.7rem", fontWeight: 700, color: "#64748b", marginBottom: "6px", letterSpacing: "0.08em", textTransform: "uppercase" }}>Department</label>
+                <select name="department" required onChange={handleChange} className="input-premium" style={{ paddingLeft: "14px", fontSize: "0.85rem", cursor: "pointer" }}>
+                  <option value="">Select...</option>
+                  {DEPARTMENTS.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
+                </select>
               </div>
             </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 ml-1">Official Email</label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <input 
-                  type="email" name="email" required onChange={handleChange}
-                  className="w-full pl-9 pr-3 py-2.5 bg-white/50 dark:bg-black/20 border border-slate-200 dark:border-white/5 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-slate-800 dark:text-white"
-                  placeholder="name@gov.in"
-                />
+            {/* Email */}
+            <div>
+              <label style={{ display: "block", fontSize: "0.7rem", fontWeight: 700, color: "#64748b", marginBottom: "6px", letterSpacing: "0.08em", textTransform: "uppercase" }}>Official Government Email</label>
+              <div style={{ position: "relative" }}>
+                <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", fontSize: "15px", opacity: 0.5 }}>✉️</span>
+                <input type="email" name="email" required onChange={handleChange} className="input-premium" placeholder="name@nic.gov.in" />
               </div>
             </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 ml-1">Secure Password</label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <input 
-                  type="password" name="password" required onChange={handleChange}
-                  className="w-full pl-9 pr-3 py-2.5 bg-white/50 dark:bg-black/20 border border-slate-200 dark:border-white/5 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-slate-800 dark:text-white"
-                  placeholder="••••••••"
-                />
+            {/* Password */}
+            <div>
+              <label style={{ display: "block", fontSize: "0.7rem", fontWeight: 700, color: "#64748b", marginBottom: "6px", letterSpacing: "0.08em", textTransform: "uppercase" }}>Secure Password</label>
+              <div style={{ position: "relative" }}>
+                <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", fontSize: "15px", opacity: 0.5 }}>🔒</span>
+                <input type="password" name="password" required onChange={handleChange} className="input-premium" placeholder="••••••••" />
               </div>
+              <p style={{ marginTop: "6px", fontSize: "0.7rem", color: "#334155" }}>Must be at least 12 characters</p>
             </div>
 
-            <button 
-              type="submit" 
-              disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 mt-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl font-bold shadow-lg shadow-emerald-500/30 transition-all active:scale-95 disabled:opacity-70"
-            >
-              {isLoading ? (
-                <span className="animate-spin h-5 w-5 border-2 border-white/30 border-t-white rounded-full" />
-              ) : (
-                <>
-                  <Shield className="h-5 w-5" />
-                  Submit Registration
-                  <ArrowRight className="h-4 w-4 ml-1" />
-                </>
-              )}
+            {/* Terms */}
+            <label style={{ display: "flex", alignItems: "flex-start", gap: "10px", cursor: "pointer" }}>
+              <input type="checkbox" required style={{ marginTop: "3px", accentColor: "#10b981" }} />
+              <span style={{ fontSize: "0.775rem", color: "#475569", lineHeight: 1.5 }}>
+                I agree to the AstraMind <a href="#" style={{ color: "#34d399", textDecoration: "none" }}>Terms of Access</a> and understand data handling under the <a href="#" style={{ color: "#34d399", textDecoration: "none" }}>IT Act 2000</a>.
+              </span>
+            </label>
+
+            <button type="submit" disabled={isLoading} className="btn-brand" style={{ width: "100%", marginTop: "4px", background: "linear-gradient(135deg, #10b981, #059669)", boxShadow: "0 8px 32px rgba(16,185,129,0.4)" }}>
+              <span>
+                {isLoading ? (
+                  <>
+                    <svg style={{ width: 18, height: 18, animation: "spin 1s linear infinite" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                      <path d="M21 12a9 9 0 1 1-6.219-8.56" strokeLinecap="round" />
+                    </svg>
+                    Submitting for review...
+                  </>
+                ) : (
+                  "Submit Access Request →"
+                )}
+              </span>
             </button>
           </form>
 
-          <div className="mt-6 text-center text-sm">
-            <span className="text-slate-500 dark:text-slate-400">Already authorized? </span>
-            <Link href="/login" className="font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-              Authenticate here
-            </Link>
+          <div style={{ textAlign: "center", marginTop: "24px", fontSize: "0.85rem" }}>
+            <span style={{ color: "#334155" }}>Already authorized? </span>
+            <Link href="/login" style={{ color: "#34d399", fontWeight: 700, textDecoration: "none" }}>Authenticate →</Link>
           </div>
-          
         </div>
       </div>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -8,12 +8,7 @@ export default function LoginPage() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,200 +16,235 @@ export default function LoginPage() {
     setTimeout(() => router.push("/dashboard"), 1200);
   };
 
-  if (!mounted) return null;
-
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#04080F",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        overflow: "hidden",
-        fontFamily: "var(--font-geist-sans), 'Inter', sans-serif"
-      }}
-    >
-      {/* Grid background */}
-      <div className="bg-grid" style={{ position: "absolute", inset: 0, opacity: 0.6 }} />
-
-      {/* Ambient orbs */}
+    <div style={{
+      minHeight: "100vh",
+      background: "#04080F",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      position: "relative",
+      overflow: "hidden",
+      fontFamily: "'Inter', -apple-system, sans-serif",
+    }}>
+      {/* Animated orbs */}
       <div style={{
-        position: "absolute", top: "-15%", left: "-10%",
-        width: "55%", height: "55%",
+        position: "absolute", top: "-20%", left: "-15%",
+        width: "600px", height: "600px",
         background: "radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%)",
-        filter: "blur(60px)", pointerEvents: "none"
+        filter: "blur(80px)", pointerEvents: "none", borderRadius: "50%"
       }} />
       <div style={{
-        position: "absolute", bottom: "-15%", right: "-10%",
-        width: "50%", height: "50%",
-        background: "radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%)",
-        filter: "blur(60px)", pointerEvents: "none"
+        position: "absolute", bottom: "-20%", right: "-10%",
+        width: "500px", height: "500px",
+        background: "radial-gradient(circle, rgba(16,185,129,0.14) 0%, transparent 70%)",
+        filter: "blur(80px)", pointerEvents: "none", borderRadius: "50%"
       }} />
 
-      {/* Main card */}
-      <div
-        className="animate-fade-up"
-        style={{
-          width: "100%", maxWidth: "440px",
-          padding: "0 20px",
-          position: "relative", zIndex: 10
-        }}
-      >
-        {/* Glowing top border */}
+      {/* Grid overlay */}
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        backgroundImage: "linear-gradient(rgba(14,165,233,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.04) 1px, transparent 1px)",
+        backgroundSize: "60px 60px"
+      }} />
+
+      {/* Card */}
+      <div style={{
+        position: "relative", zIndex: 10,
+        width: "100%", maxWidth: "430px",
+        margin: "20px",
+      }}>
+        {/* Top glow line */}
         <div style={{
-          height: "1px",
-          background: "linear-gradient(90deg, transparent, rgba(14,165,233,0.6), transparent)",
-          marginBottom: 0, borderRadius: "16px 16px 0 0"
+          height: "1px", marginBottom: "-1px",
+          background: "linear-gradient(90deg, transparent, rgba(14,165,233,0.7), rgba(16,185,129,0.5), transparent)",
+          borderRadius: "20px 20px 0 0"
         }} />
 
-        <div
-          className="glass"
-          style={{
-            borderRadius: "20px", padding: "44px 40px",
-            boxShadow: "0 40px 80px rgba(0,0,0,0.7), 0 0 60px rgba(14,165,233,0.05), inset 0 1px 0 rgba(255,255,255,0.06)"
-          }}
-        >
-          {/* Logo */}
+        {/* Glass panel */}
+        <div style={{
+          background: "rgba(8, 14, 26, 0.85)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
+          border: "1px solid rgba(255, 255, 255, 0.07)",
+          borderTop: "none",
+          borderRadius: "0 0 20px 20px",
+          padding: "44px 40px 40px",
+          boxShadow: "0 40px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.04)"
+        }}>
+          {/* Logo section */}
           <div style={{ textAlign: "center", marginBottom: "36px" }}>
             <div style={{
-              width: 64, height: 64,
-              background: "linear-gradient(135deg, #0ea5e9, #10b981)",
-              borderRadius: "18px",
+              width: 68, height: 68,
+              background: "linear-gradient(135deg, #0ea5e9 0%, #10b981 100%)",
+              borderRadius: "20px",
               display: "inline-flex", alignItems: "center", justifyContent: "center",
+              fontSize: "30px",
+              boxShadow: "0 8px 32px rgba(14,165,233,0.5), 0 0 0 1px rgba(14,165,233,0.2)",
               marginBottom: "20px",
-              boxShadow: "0 8px 32px rgba(14,165,233,0.4)",
-              fontSize: "28px"
-            }}
-              className="animate-float animate-pulse-glow"
-            >
-              ⚡
-            </div>
+              animation: "floatIcon 4s ease-in-out infinite"
+            }}>⚡</div>
             <h1 style={{
-              fontSize: "2rem", fontWeight: 800, letterSpacing: "-0.03em",
+              fontSize: "2.1rem", fontWeight: 900, margin: "0 0 6px",
               background: "linear-gradient(135deg, #38bdf8 0%, #34d399 100%)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-              marginBottom: "6px"
+              letterSpacing: "-0.04em"
             }}>
               AstraMind
             </h1>
-            <p style={{ color: "#475569", fontSize: "0.85rem", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600 }}>
+            <p style={{ color: "#475569", fontSize: "0.82rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600, margin: "0 0 12px" }}>
               AI Intelligence Gateway
             </p>
-            <div style={{
-              display: "inline-block", marginTop: "12px",
-              padding: "3px 12px",
+            <span style={{
+              display: "inline-block",
+              padding: "3px 14px",
               background: "rgba(16,185,129,0.1)",
-              border: "1px solid rgba(16,185,129,0.25)",
+              border: "1px solid rgba(16,185,129,0.3)",
               borderRadius: "20px",
-              fontSize: "0.7rem", fontWeight: 700,
-              color: "#34d399", letterSpacing: "0.05em"
+              fontSize: "0.65rem", fontWeight: 800,
+              color: "#34d399", letterSpacing: "0.08em"
             }}>
-              SECURE GOVERNMENT PORTAL
-            </div>
+              🔐 SECURE GOVERNMENT PORTAL
+            </span>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-            {/* Username / Email */}
-            <div>
-              <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "#94a3b8", marginBottom: "8px", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+          <form onSubmit={handleLogin}>
+            {/* Username */}
+            <div style={{ marginBottom: "18px" }}>
+              <label style={{
+                display: "block", fontSize: "0.7rem", fontWeight: 700,
+                color: "#64748b", marginBottom: "8px",
+                letterSpacing: "0.1em", textTransform: "uppercase"
+              }}>
                 Username or Email
               </label>
               <div style={{ position: "relative" }}>
-                <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", fontSize: "16px", opacity: 0.5 }}>👤</span>
+                <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", fontSize: "15px", opacity: 0.4 }}>
+                  👤
+                </span>
                 <input
                   type="text" required value={identifier}
                   onChange={e => setIdentifier(e.target.value)}
-                  className="input-premium"
                   placeholder="admin@astramind.gov.in"
+                  style={{
+                    width: "100%", boxSizing: "border-box",
+                    padding: "13px 16px 13px 42px",
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: "12px", color: "#f0f6ff", fontSize: "0.9rem",
+                    outline: "none", transition: "all 0.2s ease",
+                    fontFamily: "inherit"
+                  }}
+                  onFocus={e => {
+                    e.target.style.borderColor = "rgba(14,165,233,0.5)";
+                    e.target.style.background = "rgba(14,165,233,0.06)";
+                    e.target.style.boxShadow = "0 0 0 3px rgba(14,165,233,0.12)";
+                  }}
+                  onBlur={e => {
+                    e.target.style.borderColor = "rgba(255,255,255,0.08)";
+                    e.target.style.background = "rgba(255,255,255,0.04)";
+                    e.target.style.boxShadow = "none";
+                  }}
                 />
               </div>
             </div>
 
             {/* Password */}
-            <div>
+            <div style={{ marginBottom: "28px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-                <label style={{ fontSize: "0.75rem", fontWeight: 700, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase" }}>
-                  Password
-                </label>
-                <a href="#" style={{ fontSize: "0.75rem", color: "#38bdf8", textDecoration: "none", opacity: 0.8 }}>Forgot?</a>
+                <label style={{ fontSize: "0.7rem", fontWeight: 700, color: "#64748b", letterSpacing: "0.1em", textTransform: "uppercase" }}>Password</label>
+                <a href="#" style={{ fontSize: "0.72rem", color: "#38bdf8", textDecoration: "none" }}>Forgot?</a>
               </div>
               <div style={{ position: "relative" }}>
-                <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", fontSize: "16px", opacity: 0.5 }}>🔒</span>
+                <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", fontSize: "15px", opacity: 0.4 }}>🔒</span>
                 <input
                   type="password" required value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="input-premium"
-                  placeholder="••••••••••"
+                  placeholder="••••••••••••"
+                  style={{
+                    width: "100%", boxSizing: "border-box",
+                    padding: "13px 16px 13px 42px",
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: "12px", color: "#f0f6ff", fontSize: "0.9rem",
+                    outline: "none", transition: "all 0.2s ease",
+                    fontFamily: "inherit"
+                  }}
+                  onFocus={e => {
+                    e.target.style.borderColor = "rgba(14,165,233,0.5)";
+                    e.target.style.background = "rgba(14,165,233,0.06)";
+                    e.target.style.boxShadow = "0 0 0 3px rgba(14,165,233,0.12)";
+                  }}
+                  onBlur={e => {
+                    e.target.style.borderColor = "rgba(255,255,255,0.08)";
+                    e.target.style.background = "rgba(255,255,255,0.04)";
+                    e.target.style.boxShadow = "none";
+                  }}
                 />
               </div>
             </div>
 
-            {/* Submit */}
+            {/* Button */}
             <button
-              type="submit"
-              disabled={isLoading}
-              className="btn-brand"
-              style={{ width: "100%", marginTop: "8px" }}
+              type="submit" disabled={isLoading}
+              style={{
+                width: "100%", padding: "14px",
+                background: isLoading ? "rgba(14,165,233,0.5)" : "linear-gradient(135deg, #0ea5e9 0%, #10b981 100%)",
+                border: "none", borderRadius: "12px",
+                color: "white", fontSize: "0.95rem", fontWeight: 800,
+                cursor: isLoading ? "not-allowed" : "pointer",
+                boxShadow: "0 8px 32px rgba(14,165,233,0.4)",
+                transition: "all 0.25s ease",
+                display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
+                fontFamily: "inherit", letterSpacing: "0.02em"
+              }}
+              onMouseEnter={e => { if (!isLoading) (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-1px)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)"; }}
             >
-              <span>
-                {isLoading ? (
-                  <>
-                    <svg style={{ width: 18, height: 18, animation: "spin 1s linear infinite" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                      <path d="M21 12a9 9 0 1 1-6.219-8.56" strokeLinecap="round" />
-                    </svg>
-                    Authenticating...
-                  </>
-                ) : (
-                  <>
-                    🛡️ Authenticate & Enter
-                    <svg style={{ width: 16, height: 16 }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                      <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </>
-                )}
-              </span>
+              {isLoading ? (
+                <>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" style={{ animation: "spin 1s linear infinite" }}>
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56" strokeLinecap="round" />
+                  </svg>
+                  Authenticating...
+                </>
+              ) : (
+                <>🛡️ Authenticate & Enter →</>
+              )}
             </button>
           </form>
 
-          {/* Divider */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "24px 0" }}>
-            <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.06)" }} />
-            <span style={{ color: "#334155", fontSize: "0.75rem", fontWeight: 600 }}>NEW OPERATOR?</span>
-            <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.06)" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "24px 0 18px" }}>
+            <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.05)" }} />
+            <span style={{ color: "#1e293b", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.08em" }}>NEW OPERATOR</span>
+            <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.05)" }} />
           </div>
 
           <Link href="/signup" style={{
-            display: "block", textAlign: "center", padding: "0.75rem",
-            border: "1px solid rgba(255,255,255,0.08)",
-            borderRadius: "12px", color: "#94a3b8",
+            display: "block", textAlign: "center", padding: "13px",
+            border: "1px solid rgba(255,255,255,0.07)",
+            borderRadius: "12px", color: "#64748b",
             textDecoration: "none", fontSize: "0.875rem", fontWeight: 600,
             transition: "all 0.2s ease",
             background: "rgba(255,255,255,0.02)"
-          }}
-            onMouseEnter={e => {
-              (e.target as HTMLElement).style.borderColor = "rgba(14,165,233,0.4)";
-              (e.target as HTMLElement).style.color = "#38bdf8";
-            }}
-            onMouseLeave={e => {
-              (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
-              (e.target as HTMLElement).style.color = "#94a3b8";
-            }}
-          >
+          }}>
             Request Government Access →
           </Link>
 
-          {/* Footer */}
-          <p style={{ textAlign: "center", marginTop: "20px", fontSize: "0.7rem", color: "#1e293b", letterSpacing: "0.04em" }}>
-            🔒 Secured by AstraMind AI Security • MoHA Certified
+          <p style={{ textAlign: "center", marginTop: "20px", fontSize: "0.65rem", color: "#1e293b", letterSpacing: "0.05em" }}>
+            🔒 Secured by AstraMind • MoHA Certified • IT Act 2000
           </p>
         </div>
       </div>
 
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes floatIcon {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-6px) rotate(3deg); }
+        }
+        input::placeholder { color: #334155; }
       `}</style>
     </div>
   );

@@ -1,4 +1,7 @@
+"use client";
+
 import { GlassCard } from "@/components/ui/glass-card";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Activity, AlertTriangle, CloudRain, Cpu, Radio, ShieldAlert } from "lucide-react";
 import dynamic from "next/dynamic";
 
@@ -31,7 +34,8 @@ export default function Dashboard() {
             </span>
             System Online
           </div>
-          <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 border-2 border-slate-800 shadow-lg" />
+          <ThemeToggle />
+          <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 border-2 border-slate-300 dark:border-slate-800 shadow-lg" />
         </div>
       </header>
 

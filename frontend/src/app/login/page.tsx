@@ -10,10 +10,28 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => router.push("/dashboard"), 1200);
+    try {
+      const res = await fetch("http://localhost:8000/api/v1/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identifier, password }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("token", data.access_token);
+        router.push("/dashboard");
+      } else {
+        const err = await res.json();
+        alert(err.detail || "Login failed");
+      }
+    } catch (err) {
+      alert("Network error connecting to API");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

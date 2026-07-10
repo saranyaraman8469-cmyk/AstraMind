@@ -22,8 +22,10 @@ app.add_middleware(
 async def health_check():
     return {"status": "ok", "service": "AstraMind Core API"}
 
-# Router inclusion will go here
-# app.include_router(api_router, prefix=settings.API_V1_STR)
+from api.router import api_router
+
+# Router inclusion
+app.include_router(api_router, prefix=settings.API_V1_STR)
 
 if __name__ == "__main__":
     import uvicorn

@@ -30,10 +30,37 @@ export default function SignupPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => router.push("/dashboard"), 1500);
+    try {
+      const res = await fetch("http://localhost:8000/api/v1/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        const loginRes = await fetch("http://localhost:8000/api/v1/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ identifier: form.username, password: form.password }),
+        });
+        if (loginRes.ok) {
+          const data = await loginRes.json();
+          localStorage.setItem("token", data.access_token);
+          router.push("/dashboard");
+        } else {
+          router.push("/login");
+        }
+      } else {
+        const err = await res.json();
+        alert(err.detail || "Signup failed");
+      }
+    } catch (err) {
+      alert("Network error connecting to API");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const focusStyle = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {

@@ -28,7 +28,7 @@ export default function AnalyticsPage() {
           <h2 style={{ margin: "0 0 4px", fontSize: "1.4rem", fontWeight: 900, background: "linear-gradient(90deg, #f59e0b, #ef4444)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             📊 Predictive Analytics
           </h2>
-          <p style={{ margin: 0, fontSize: "0.8rem", color: "#475569" }}>AI-powered forecasting across infrastructure, weather, and risk signals</p>
+          <p style={{ margin: 0, fontSize: "0.8rem", color: "var(--text-muted)" }}>AI-powered forecasting across infrastructure, weather, and risk signals</p>
         </div>
 
         {/* Top KPIs */}
@@ -39,12 +39,12 @@ export default function AnalyticsPage() {
             { label: "Power Outage Risk", value: "23%", icon: "⚡", color: "#a78bfa", delta: "Next 24 hours" },
             { label: "Model Accuracy", value: "94.2%", icon: "🎯", color: "#34d399", delta: "LSTM v3.2" },
           ].map(k => (
-            <div key={k.label} style={{ background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)", border: `1px solid ${k.color}18`, borderRadius: "16px", padding: "18px 20px" }}>
+            <div key={k.label} style={{ background: "var(--bg-panel)", backdropFilter: "blur(16px)", border: `1px solid ${k.color}18`, borderRadius: "16px", padding: "18px 20px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-                <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "#475569", textTransform: "uppercase", letterSpacing: "0.08em" }}>{k.label}</span>
+                <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em" }}>{k.label}</span>
                 <span style={{ fontSize: "20px" }}>{k.icon}</span>
               </div>
-              <p style={{ margin: "0 0 4px", fontSize: "1.8rem", fontWeight: 900, color: "#f0f6ff" }}>{k.value}</p>
+              <p style={{ margin: "0 0 4px", fontSize: "1.8rem", fontWeight: 900, color: "var(--text-primary)" }}>{k.value}</p>
               <p style={{ margin: 0, fontSize: "0.68rem", color: k.color }}>{k.delta}</p>
             </div>
           ))}
@@ -53,11 +53,11 @@ export default function AnalyticsPage() {
         {/* Chart + State Risk */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: "16px" }}>
           {/* Risk Forecast Bar Chart */}
-          <div style={{ background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", padding: "20px" }}>
+          <div style={{ background: "var(--bg-panel)", backdropFilter: "blur(16px)", border: "1px solid var(--border-subtle)", borderRadius: "16px", padding: "20px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
               <div>
-                <h3 style={{ margin: "0 0 3px", fontSize: "0.85rem", fontWeight: 800, color: "#f0f6ff" }}>Infrastructure Risk Forecast</h3>
-                <p style={{ margin: 0, fontSize: "0.7rem", color: "#475569" }}>Pamban Bridge — Next 12 Hours</p>
+                <h3 style={{ margin: "0 0 3px", fontSize: "0.85rem", fontWeight: 800, color: "var(--text-primary)" }}>Infrastructure Risk Forecast</h3>
+                <p style={{ margin: 0, fontSize: "0.7rem", color: "var(--text-muted)" }}>Pamban Bridge — Next 12 Hours</p>
               </div>
               <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "#f87171", background: "rgba(239,68,68,0.1)", padding: "3px 10px", borderRadius: "8px", border: "1px solid rgba(239,68,68,0.2)" }}>LSTM Model</span>
             </div>
@@ -75,7 +75,7 @@ export default function AnalyticsPage() {
                 );
               })}
             </div>
-            <div style={{ display: "flex", gap: "16px", marginTop: "16px", paddingTop: "14px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+            <div style={{ display: "flex", gap: "16px", marginTop: "16px", paddingTop: "14px", borderTop: "1px solid var(--divider)" }}>
               {[["🔴 Critical (>75%)", "#f87171"], ["🟡 Warning (55–75%)", "#fbbf24"], ["🟢 Safe (<55%)", "#34d399"]].map(([l, c]) => (
                 <div key={l as string} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                   <div style={{ width: 8, height: 8, borderRadius: "2px", background: c as string }} />
@@ -86,21 +86,21 @@ export default function AnalyticsPage() {
           </div>
 
           {/* State Risk Ranking */}
-          <div style={{ background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", padding: "20px" }}>
-            <h3 style={{ margin: "0 0 16px", fontSize: "0.85rem", fontWeight: 800, color: "#f0f6ff" }}>🇮🇳 State Risk Ranking</h3>
+          <div style={{ background: "var(--bg-panel)", backdropFilter: "blur(16px)", border: "1px solid var(--border-subtle)", borderRadius: "16px", padding: "20px" }}>
+            <h3 style={{ margin: "0 0 16px", fontSize: "0.85rem", fontWeight: 800, color: "var(--text-primary)" }}>🇮🇳 State Risk Ranking</h3>
             {STATE_RISK.map((s, i) => (
               <div key={s.state} style={{ marginBottom: "14px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                    <span style={{ fontSize: "0.68rem", color: "#94a3b8", width: "12px", textAlign: "right" }}>{i + 1}</span>
-                    <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#f0f6ff" }}>{s.state}</span>
+                    <span style={{ fontSize: "0.68rem", color: "var(--text-secondary)", width: "12px", textAlign: "right" }}>{i + 1}</span>
+                    <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-primary)" }}>{s.state}</span>
                   </div>
                   <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
                     {s.critical > 0 && <span style={{ fontSize: "0.6rem", color: "#f87171", fontWeight: 700 }}>⚠ {s.critical}</span>}
                     <span style={{ fontSize: "0.72rem", fontWeight: 800, color: s.risk > 65 ? "#f87171" : s.risk > 40 ? "#fbbf24" : "#34d399" }}>{s.risk}%</span>
                   </div>
                 </div>
-                <div style={{ height: "5px", borderRadius: "5px", background: "rgba(255,255,255,0.05)" }}>
+                <div style={{ height: "5px", borderRadius: "5px", background: "var(--divider)" }}>
                   <div style={{ height: "100%", borderRadius: "5px", width: `${s.risk}%`, background: s.risk > 65 ? "linear-gradient(90deg,#ef4444,#f97316)" : s.risk > 40 ? "linear-gradient(90deg,#f59e0b,#eab308)" : "linear-gradient(90deg,#10b981,#34d399)", transition: "width 0.8s ease" }} />
                 </div>
               </div>
@@ -109,8 +109,8 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Model Performance */}
-        <div style={{ background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", padding: "20px" }}>
-          <h3 style={{ margin: "0 0 16px", fontSize: "0.85rem", fontWeight: 800, color: "#f0f6ff" }}>🧪 Forecasting Model Performance</h3>
+        <div style={{ background: "var(--bg-panel)", backdropFilter: "blur(16px)", border: "1px solid var(--border-subtle)", borderRadius: "16px", padding: "20px" }}>
+          <h3 style={{ margin: "0 0 16px", fontSize: "0.85rem", fontWeight: 800, color: "var(--text-primary)" }}>🧪 Forecasting Model Performance</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "12px" }}>
             {[
               { model: "LSTM", accuracy: 94.2, type: "Bridge Failure", color: "#38bdf8" },
@@ -119,10 +119,10 @@ export default function AnalyticsPage() {
               { model: "Informer", accuracy: 96.1, type: "Flood Level", color: "#34d399" },
               { model: "PatchTST", accuracy: 93.8, type: "Hospital Load", color: "#fb923c" },
             ].map(m => (
-              <div key={m.model} style={{ textAlign: "center", padding: "16px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "12px" }}>
+              <div key={m.model} style={{ textAlign: "center", padding: "16px", background: "rgba(255,255,255,0.02)", border: "1px solid var(--divider)", borderRadius: "12px" }}>
                 <div style={{ fontSize: "1.4rem", fontWeight: 900, color: m.color, marginBottom: "4px" }}>{m.accuracy}%</div>
-                <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#f0f6ff", marginBottom: "2px" }}>{m.model}</div>
-                <div style={{ fontSize: "0.65rem", color: "#475569" }}>{m.type}</div>
+                <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "2px" }}>{m.model}</div>
+                <div style={{ fontSize: "0.65rem", color: "var(--text-muted)" }}>{m.type}</div>
               </div>
             ))}
           </div>

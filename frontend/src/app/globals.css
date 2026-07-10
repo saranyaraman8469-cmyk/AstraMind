@@ -6,23 +6,35 @@
 
 :root {
   --bg-base: #04080F;
-  --bg-surface: rgba(10, 16, 28, 0.8);
-  --border-subtle: rgba(255, 255, 255, 0.07);
+  --bg-panel: rgba(8, 14, 26, 0.7);
+  --bg-panel-hover: rgba(255, 255, 255, 0.03);
+  --bg-input: rgba(255, 255, 255, 0.04);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-input: rgba(255, 255, 255, 0.08);
   --border-glow: rgba(56, 189, 248, 0.3);
   --text-primary: #f0f6ff;
-  --text-muted: #64748b;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
   --gradient-brand: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
   --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
   --glow-blue: 0 0 40px rgba(14, 165, 233, 0.25);
   --glow-emerald: 0 0 40px rgba(16, 185, 129, 0.2);
+  --divider: rgba(255, 255, 255, 0.05);
+  --grid-line: rgba(14, 165, 233, 0.025);
 }
 
 .light {
-  --bg-base: #f0f4f8;
-  --bg-surface: rgba(255, 255, 255, 0.7);
-  --border-subtle: rgba(0, 0, 0, 0.08);
+  --bg-base: #f4f7fb;
+  --bg-panel: rgba(255, 255, 255, 0.95);
+  --bg-panel-hover: rgba(0, 0, 0, 0.02);
+  --bg-input: rgba(255, 255, 255, 1);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-input: rgba(0, 0, 0, 0.1);
   --text-primary: #0f172a;
+  --text-secondary: #475569;
   --text-muted: #64748b;
+  --divider: rgba(0, 0, 0, 0.06);
+  --grid-line: rgba(14, 165, 233, 0.05);
 }
 
 *, *::before, *::after {
@@ -95,8 +107,8 @@ body {
 /* =================== GRID BACKGROUND =================== */
 .bg-grid {
   background-image: 
-    linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 60px 60px;
   animation: grid-move 20s linear infinite;
 }

@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 
 const DigitalTwinMap = dynamic(() => import("@/components/DigitalTwinMap"), {
   ssr: false,
-  loading: () => <div style={{ height: "100%", background: "rgba(8,14,26,0.7)", borderRadius: "16px", display: "flex", alignItems: "center", justifyContent: "center", color: "#1e3a5f" }}>Loading Digital Twin...</div>
+  loading: () => <div style={{ height: "100%", background: "var(--bg-panel)", borderRadius: "16px", display: "flex", alignItems: "center", justifyContent: "center", color: "#1e3a5f" }}>Loading Digital Twin...</div>
 });
 
 const INFRA = [
@@ -35,11 +35,11 @@ export default function DigitalTwinPage() {
             <h2 style={{ margin: "0 0 4px", fontSize: "1.4rem", fontWeight: 900, background: "linear-gradient(90deg, #38bdf8, #34d399)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               🗺️ Live Digital Twin
             </h2>
-            <p style={{ margin: 0, fontSize: "0.8rem", color: "#475569" }}>Real-time synchronised state of all critical infrastructure across India</p>
+            <p style={{ margin: 0, fontSize: "0.8rem", color: "var(--text-muted)" }}>Real-time synchronised state of all critical infrastructure across India</p>
           </div>
           <div style={{ display: "flex", gap: "10px" }}>
             {["All", "Bridge", "Dam", "Hospital", "Power"].map(f => (
-              <button key={f} style={{ padding: "5px 14px", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.08)", background: f === "All" ? "rgba(14,165,233,0.15)" : "transparent", color: f === "All" ? "#38bdf8" : "#475569", fontSize: "0.75rem", fontWeight: 700, cursor: "pointer" }}>{f}</button>
+              <button key={f} style={{ padding: "5px 14px", borderRadius: "20px", border: "1px solid var(--border-input)", background: f === "All" ? "rgba(14,165,233,0.15)" : "transparent", color: f === "All" ? "#38bdf8" : "var(--text-muted)", fontSize: "0.75rem", fontWeight: 700, cursor: "pointer" }}>{f}</button>
             ))}
           </div>
         </div>
@@ -47,29 +47,29 @@ export default function DigitalTwinPage() {
         {/* Map + Table */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: "16px" }}>
           {/* Map */}
-          <div style={{ background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "20px", height: "460px", overflow: "hidden", position: "relative" }}>
-            <div style={{ position: "absolute", top: 12, left: 12, zIndex: 400, background: "rgba(4,8,15,0.85)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "7px 13px", fontSize: "0.75rem", fontWeight: 700, color: "#f0f6ff" }}>
+          <div style={{ background: "var(--bg-panel)", backdropFilter: "blur(16px)", border: "1px solid var(--border-subtle)", borderRadius: "20px", height: "460px", overflow: "hidden", position: "relative" }}>
+            <div style={{ position: "absolute", top: 12, left: 12, zIndex: 400, background: "rgba(4,8,15,0.85)", backdropFilter: "blur(12px)", border: "1px solid var(--border-input)", borderRadius: "10px", padding: "7px 13px", fontSize: "0.75rem", fontWeight: 700, color: "var(--text-primary)" }}>
               🛰️ Live Satellite View — {INFRA.length} Assets
             </div>
             <DigitalTwinMap />
           </div>
 
           {/* Asset list */}
-          <div style={{ background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "20px", padding: "16px", overflowY: "auto", maxHeight: "460px" }}>
-            <h3 style={{ margin: "0 0 14px", fontSize: "0.82rem", fontWeight: 800, color: "#f0f6ff" }}>Asset Registry</h3>
+          <div style={{ background: "var(--bg-panel)", backdropFilter: "blur(16px)", border: "1px solid var(--border-subtle)", borderRadius: "20px", padding: "16px", overflowY: "auto", maxHeight: "460px" }}>
+            <h3 style={{ margin: "0 0 14px", fontSize: "0.82rem", fontWeight: 800, color: "var(--text-primary)" }}>Asset Registry</h3>
             {INFRA.map(asset => (
-              <div key={asset.id} style={{ padding: "12px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)", marginBottom: "10px", cursor: "pointer", transition: "all 0.2s" }}>
+              <div key={asset.id} style={{ padding: "12px", borderRadius: "12px", background: "var(--bg-panel-hover)", border: "1px solid var(--divider)", marginBottom: "10px", cursor: "pointer", transition: "all 0.2s" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
                   <div>
-                    <p style={{ margin: "0 0 2px", fontSize: "0.8rem", fontWeight: 800, color: "#f0f6ff" }}>{asset.name}</p>
-                    <p style={{ margin: 0, fontSize: "0.68rem", color: "#475569" }}>{asset.type} · {asset.state} · {asset.sensors} sensors</p>
+                    <p style={{ margin: "0 0 2px", fontSize: "0.8rem", fontWeight: 800, color: "var(--text-primary)" }}>{asset.name}</p>
+                    <p style={{ margin: 0, fontSize: "0.68rem", color: "var(--text-muted)" }}>{asset.type} · {asset.state} · {asset.sensors} sensors</p>
                   </div>
                   <span style={{ fontSize: "0.6rem", fontWeight: 800, padding: "2px 8px", borderRadius: "8px", background: statusBg[asset.status], border: `1px solid ${statusColor[asset.status]}30`, color: statusColor[asset.status] }}>{asset.status}</span>
                 </div>
                 {/* Health bar */}
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <span style={{ fontSize: "0.65rem", color: "#334155", width: "60px" }}>Health</span>
-                  <div style={{ flex: 1, height: "4px", borderRadius: "4px", background: "rgba(255,255,255,0.05)" }}>
+                  <div style={{ flex: 1, height: "4px", borderRadius: "4px", background: "var(--divider)" }}>
                     <div style={{ height: "100%", borderRadius: "4px", width: `${asset.health}%`, background: asset.health < 30 ? "linear-gradient(90deg,#ef4444,#f97316)" : asset.health < 65 ? "linear-gradient(90deg,#f59e0b,#eab308)" : "linear-gradient(90deg,#10b981,#34d399)" }} />
                   </div>
                   <span style={{ fontSize: "0.65rem", fontWeight: 700, color: asset.health < 30 ? "#f87171" : "#34d399", width: "28px", textAlign: "right" }}>{asset.health}%</span>
@@ -82,10 +82,10 @@ export default function DigitalTwinPage() {
         {/* Stats row */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
           {[["Total Assets", "2,847", "🏗️", "#38bdf8"], ["Critical", "3", "🔴", "#f87171"], ["Healthy", "2,791", "🟢", "#34d399"], ["Under Repair", "53", "🔧", "#fbbf24"]].map(([l, v, i, c]) => (
-            <div key={l as string} style={{ background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)", border: `1px solid ${c as string}15`, borderRadius: "14px", padding: "16px 18px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div key={l as string} style={{ background: "var(--bg-panel)", backdropFilter: "blur(16px)", border: `1px solid ${c as string}15`, borderRadius: "14px", padding: "16px 18px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
-                <p style={{ margin: "0 0 6px", fontSize: "0.65rem", fontWeight: 700, color: "#475569", textTransform: "uppercase", letterSpacing: "0.08em" }}>{l}</p>
-                <p style={{ margin: 0, fontSize: "1.6rem", fontWeight: 900, color: "#f0f6ff" }}>{v}</p>
+                <p style={{ margin: "0 0 6px", fontSize: "0.65rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em" }}>{l}</p>
+                <p style={{ margin: 0, fontSize: "1.6rem", fontWeight: 900, color: "var(--text-primary)" }}>{v}</p>
               </div>
               <span style={{ fontSize: "24px" }}>{i}</span>
             </div>

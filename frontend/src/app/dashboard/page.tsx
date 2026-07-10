@@ -51,14 +51,14 @@ export default function DashboardHome() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "14px" }}>
           {STATS.map(s => (
             <div key={s.label} style={{
-              background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)",
+              background: "var(--bg-panel)", backdropFilter: "blur(16px)",
               border: `1px solid ${s.color}18`, borderRadius: "16px", padding: "18px 20px",
               boxShadow: `0 0 30px ${s.color}08`
             }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                 <div>
-                  <p style={{ margin: "0 0 8px", fontSize: "0.65rem", fontWeight: 800, color: "#475569", textTransform: "uppercase", letterSpacing: "0.1em" }}>{s.label}</p>
-                  <p style={{ margin: 0, fontSize: "1.75rem", fontWeight: 900, color: "#f0f6ff", letterSpacing: "-0.04em" }}>{s.value}</p>
+                  <p style={{ margin: "0 0 8px", fontSize: "0.65rem", fontWeight: 800, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.1em" }}>{s.label}</p>
+                  <p style={{ margin: 0, fontSize: "1.75rem", fontWeight: 900, color: "var(--text-primary)", letterSpacing: "-0.04em" }}>{s.value}</p>
                 </div>
                 <div style={{ width: 42, height: 42, borderRadius: "12px", fontSize: "20px", background: `${s.color}12`, border: `1px solid ${s.color}22`, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {s.icon}
@@ -71,9 +71,9 @@ export default function DashboardHome() {
         {/* MAP + SIDE PANEL */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 350px", gap: "16px" }}>
           {/* MAP */}
-          <div style={{ background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "20px", height: "500px", overflow: "hidden", position: "relative" }}>
+          <div style={{ background: "var(--bg-panel)", backdropFilter: "blur(16px)", border: "1px solid var(--border-subtle)", borderRadius: "20px", height: "500px", overflow: "hidden", position: "relative" }}>
             <div style={{ position: "absolute", top: 14, left: 14, zIndex: 400, display: "flex", gap: "8px", alignItems: "center" }}>
-              <div style={{ background: "rgba(4,8,15,0.85)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "7px 13px", fontSize: "0.75rem", fontWeight: 700, color: "#f0f6ff" }}>
+              <div style={{ background: "rgba(4,8,15,0.85)", backdropFilter: "blur(12px)", border: "1px solid var(--border-input)", borderRadius: "10px", padding: "7px 13px", fontSize: "0.75rem", fontWeight: 700, color: "var(--text-primary)" }}>
                 🛰️ Real-time Asset Status
               </div>
               <div style={{ padding: "4px 10px", borderRadius: "8px", background: "rgba(239,68,68,0.12)", border: "1px solid rgba(239,68,68,0.25)", fontSize: "0.65rem", fontWeight: 800, color: "#f87171", letterSpacing: "0.08em", animation: "blink 1.5s infinite" }}>
@@ -86,9 +86,9 @@ export default function DashboardHome() {
           {/* SIDE PANEL */}
           <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
             {/* Alerts */}
-            <div style={{ background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", padding: "16px", flex: 1 }}>
+            <div style={{ background: "var(--bg-panel)", backdropFilter: "blur(16px)", border: "1px solid var(--border-subtle)", borderRadius: "16px", padding: "16px", flex: 1 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
-                <h3 style={{ margin: 0, fontSize: "0.8rem", fontWeight: 800, color: "#f0f6ff" }}>🔔 Live Intelligence Feed</h3>
+                <h3 style={{ margin: 0, fontSize: "0.8rem", fontWeight: 800, color: "var(--text-primary)" }}>🔔 Live Intelligence Feed</h3>
                 <span style={{ fontSize: "0.6rem", color: "#34d399", fontWeight: 800, background: "rgba(16,185,129,0.1)", padding: "2px 8px", borderRadius: "6px", border: "1px solid rgba(16,185,129,0.2)" }}>STREAMING</span>
               </div>
               {LIVE_ALERTS.map((a, i) => (
@@ -105,21 +105,21 @@ export default function DashboardHome() {
                     }}>{a.severity}</span>
                     <span style={{ fontSize: "0.65rem", color: "#334155" }}>{a.time}</span>
                   </div>
-                  <p style={{ margin: 0, fontSize: "0.75rem", color: "#94a3b8", lineHeight: 1.5 }}>{a.msg}</p>
+                  <p style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{a.msg}</p>
                 </div>
               ))}
             </div>
 
             {/* Health Index */}
-            <div style={{ background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", padding: "16px" }}>
-              <h3 style={{ margin: "0 0 14px", fontSize: "0.8rem", fontWeight: 800, color: "#f0f6ff" }}>🏗️ Asset Health Index</h3>
+            <div style={{ background: "var(--bg-panel)", backdropFilter: "blur(16px)", border: "1px solid var(--border-subtle)", borderRadius: "16px", padding: "16px" }}>
+              <h3 style={{ margin: "0 0 14px", fontSize: "0.8rem", fontWeight: 800, color: "var(--text-primary)" }}>🏗️ Asset Health Index</h3>
               {MOCK_ASSETS.map(a => (
                 <div key={a.id} style={{ marginBottom: "12px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
                     <span style={{ fontSize: "0.72rem", color: "#cbd5e1", fontWeight: 600 }}>{a.name}</span>
                     <span style={{ fontSize: "0.7rem", fontWeight: 800, color: a.risk > 0.7 ? "#f87171" : a.risk > 0.5 ? "#fbbf24" : "#34d399" }}>{(a.risk * 100).toFixed(0)}%</span>
                   </div>
-                  <div style={{ height: "5px", borderRadius: "10px", background: "rgba(255,255,255,0.05)" }}>
+                  <div style={{ height: "5px", borderRadius: "10px", background: "var(--divider)" }}>
                     <div style={{ height: "100%", borderRadius: "10px", width: `${a.risk * 100}%`, background: a.risk > 0.7 ? "linear-gradient(90deg,#ef4444,#f97316)" : a.risk > 0.5 ? "linear-gradient(90deg,#f59e0b,#eab308)" : "linear-gradient(90deg,#10b981,#34d399)", transition: "width 1s ease" }} />
                   </div>
                 </div>
@@ -129,7 +129,7 @@ export default function DashboardHome() {
         </div>
 
         {/* AGENT STATUS */}
-        <div style={{ background: "rgba(8,14,26,0.7)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "14px", padding: "14px 20px", display: "flex", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
+        <div style={{ background: "var(--bg-panel)", backdropFilter: "blur(16px)", border: "1px solid var(--border-subtle)", borderRadius: "14px", padding: "14px 20px", display: "flex", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
           <span style={{ fontSize: "0.68rem", fontWeight: 800, color: "#334155", textTransform: "uppercase", letterSpacing: "0.1em" }}>🤖 Agent Status</span>
           {AGENTS.map(name => (
             <div key={name} style={{ display: "flex", alignItems: "center", gap: "5px", padding: "4px 10px", borderRadius: "8px", background: "rgba(16,185,129,0.07)", border: "1px solid rgba(16,185,129,0.18)" }}>
